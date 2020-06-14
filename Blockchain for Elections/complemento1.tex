@@ -1,0 +1,36 @@
+\chapter{\textbf{CARACTERÍSTICAS COMUMENTE DISCUTIDAS EM SISTEMAS DE ELEIÇÃO}}
+
+\section{Características de implementação}
+    \subsection{Abordagens para diminuir a coerção}
+        \cite{juels2010coercion} Simplesmente permite a sobreposição do voto, por parte do mesmo eleitor, garantindo que em algum momento o voto ocorrerá com a devida privacidade. No entanto o voto ainda é sujeito ao mesmo tipo de coerção que ocorre nas eleições presenciais, através da compra de votos. 
+
+\section{Características de segurança}
+    \subsection{Integridade} 
+        Os votos devem ser computados e considerados para o resultado final da mesma forma que foi escolhido pelo eleitor, mantendo a integridade também sobre a quantidade de votos do total de candidatos.
+        %counted as cast
+        \cite{infoModelWote}
+    
+    \subsection{Privacidade} 
+        A definição 1 de \cite{coney2005PrivacyMeasurement} compõe o conceito empregado de privacidade onde não haveria diferença na informação obtida sobre o voto de algum eleitor caso o mesmo tivesse votado de uma forma diferente. Tal informação é obtida através de saídas disponibilizadas pelo sistema.
+        %na liberação de resultado parcial e na quantidade de informação e a forma como ela foi liberada.
+        
+        Outro ponto para considerar sobre a privacidade é a possibilidade de coerção ou conluio entre participantes da eleição, podendo ou não incluir o próprio eleitor. A privacidade estará garantida caso o sistema impossibilite o próprio eleitor de obter informações que exibam mais do que as saídas regulares do sistema, ou seja, informações que o relacionam com a forma como o voto foi realizado.
+        
+        \cite{coney2005PrivacyMeasurement}
+        %perfect privacy - Lillie Coney, Towards a privacy measurementcriterion for voting systems.
+    
+    \subsection{Integridade incondicional vs Privacidade incondicional} 
+        Segundo \cite{infoModelWote}, existe um \textit{tradeoff} entre os níveis de privacidade e integridade. Por exemplo, um processo eleitoral que declara como vencedor um candidato, independentemente do número de votos, possui zero de integridade e caso não haja saídas do sistema para comprovar o resultado, essa mesma eleição possui o nível máximo de privacidade.
+        
+        O sistema de eleição consegue estabelecer a relação ideal entre privacidade e integridade quando o voto é computado exatamente da forma que foi processada na etapa de votação e quando o único tipo de saída do sistema é em relação a quantidade dos votos.
+        %https://www2.seas.gwu.edu/~poorvi/InfoModelWOTE.pdf  An Information-Theoretic Model of Voting Systems
+        
+    \subsection{Eleições Verificáveis} 
+        O fator de verificabilidade de uma eleição pode ser resumida pela capacidade de validação sobre o resultado do algoritmo da fase de contagem dos votos. Mesmo que a integridade do sistema não seja perfeita, se existir a capacidade de identificar que houve uma irregularidade na contagem dos votos então a característica de verificabilidade está garantida.
+        \cite{infoModelWote}
+    %% Cast As Intended, Recorded asCast, and Counted as Recorded
+    
+    \subsection{cryp-tographic voting protocols}
+    %Fazer depois do projeto informacional
+        \cite{adida2008helios}
+        %heliosvoting paper

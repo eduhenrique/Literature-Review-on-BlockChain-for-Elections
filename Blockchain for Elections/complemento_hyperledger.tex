@@ -1,0 +1,32 @@
+\chapter{\textbf{HYPERLEDGER - DEFINIÇÕES}}
+%% compilação com informações das diferentes Ledgers
+
+\section{\textit{Distributed Ledgers}} 
+    \subsection{Hyperledger Besu} %https://www.hyperledger.org/blog/2019/08/29/announcing-hyperledger-besu
+    
+        É um client Ethereum, feito para ser \textit{enterprise-friendly} tanto para redes públicas quanto para permissionadas. Hyperledger Besu conta com diversos algoritmos de consenso, incluindo \textit{Proof of Work} and \textit{Proof of Authority}.
+    
+        Inclui também um CLI assim como API para operações nos nós e na rede Ethereum. O cliente API do Besu suporta normalmente principais funcionalidades do Ethereum, como contratos inteligentes e desenvolvimento de Apps descentralizados. Não há suporte para o gerenciamento de chaves no cliente, devido a questões de segurança. Para suprir essa necessidade o EthSigner ou outras tecnologias do Ethereum podem ser utilizadas.
+    
+\section{Funções de segurança}
+    \subsection{Privacidade dos dados}%The privacy protection mechanism of Hyperledger Fabric and its application in supply chain finance
+        A característica de destaque em relação a privacidade das informações é a permissão de acesso aos dados divididos por canais. Os \textit{peers} de um mesmo canal compartilham a \textit{ledger}, um novo \textit{peers} precisa do reconhecimento do canal para poder ingressar no canal e então transacionar com os outros. 
+    
+        O segundo nível de privacidade se encontra com o \textit{private data collection}, que serve para controlar quais organizações inseridas na blockchain tem acesso às informações daquele canal.
+  
+    \subsection{Integridade dos dados} %https://hyperledger-fabric.readthedocs.io/en/release-1.4/arch-deep-dive.html
+        O ponto forte da blockchain em relação a integridade dos dados é encontrado em sua essência. O bloco com as transações possuem uma referencia para o bloco anterior. Caso alguma informação já difundida seja modificada, toda a blockchain a partir daquele ponto será comprometida. 
+    
+        Para os dados recém requisitados, o cliente de posse da transação e da aprovação do \textit{endorsing peer} faz uma requisição \textit{broadcast}, que tem como destino os \textit{peers} de um determinado canal de comunicação. O \textit{orderer} se encarrega de propagar a transação aos \textit{peers}. 
+    
+        Cada \textit{peer} que recebeu a requisição e que estiver com o ultimo estado da \textit{ledger} irá verificar se o endorso está de acordo com a politica do \textit{chaincode} e se a transação possui uma chave de acordo com o estado atual da \textit{ledger}. Caso passe nessa validação, a transação é marcada como válida, caso contrário, inválida. Então cada \textit{peer} inclui o novo registro em sua cópia da blockchain e da \textit{ledger} e \textbf{(caso a transação foi válida?)} o estado atual é atualizado.
+    
+    \subsection{Não rastreabilidade do eleitor (anonimidade vs verificabilidade)} %https://hyperledger-fabric.readthedocs.io/en/release-1.4/identity/identity.html
+        Para acessar a blockchain, um usuário necessitará possuir uma identidade emitida por uma entidade certificadora da rede. Para permitir que uma identidade registre informações na rede, o \textit{Membership service provider (MSP)} utiliza o componente \textit{Public key infrastructure}(PKI), empregando conceitos de criptografia assimétrica. O registro do voto na rede blockchain garantirá a anonimidade do eleitor mas garantindo a integridade do voto, permitindo ao mesmo ser considerado para o resultado total da eleição. 
+    
+    \subsection{Verificabilidade dos votos}
+        Uma vez que toda alteração na \textit{ledger} é acessível para quem tem acesso ao canal onde as transações ocorrem, a única forma de não poder auditar os votos é se o usuário não tiver permissão para ver os registros daquela organização ou daquele canal como um todo. Esse acesso respeita os diversos níveis de configuração e de segurança para os dados.
+    
+    \subsection{Verificabilidade/Confiabilidade no resultado de eleição}
+        O resultado da eleição está de acordo com a verificabilidade dos votos. O resultado tende a ter o mesmo nível de confiança para os eleitores, independente se seu candidato obteve o resultado esperado na eleição ou não. Como os dados possuem um nível transparência enorme, questionamentos duvidosos ou de má índole perdem embasamento, resultando num único nível de confiança entre os usuários.      
+

@@ -1,0 +1,219 @@
+\documentclass[letterpaper, 12 pt, conference]{ieeeconf} 
+
+\overrideIEEEmargins
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+\usepackage{bookmark}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+\title{\LARGE \bf
+Revisão sobre Blockchain para eleições.
+}
+
+\author{\\% <-this % stops a space
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+%\begin{abstract}\end{abstract}
+\chapter{\textbf{CONCEITOS COMUNS}}
+    \subsection{\textit{Bit-commitment}}
+        Apresentado por Naor, em \cite{naor1991bit}, o protocolo de \textit{bit-commitment} se tornou o componente básico para diversos outros esquemas. O protocolo é demonstrado com o exemplo de Alice e Bob, onde  Alice escreve a informação (\textit{bit}) e tranca numa caixa, que somente ela tem a chave. A caixa é entregada para Bob (durante o período do \textit{commit}) e quando for necessário ela abre a caixa. Bob sabe que o conteúdo da caixa não foi modificado, visto que estava sobre sua responsabilidade. 
+        
+        
+        
+    \subsection{\textit{Blind signature}}
+        Em \cite{chaum1984blind} Chaum contextualiza um problema de pagamento aplicando na prática o \textit{Blind signature}. Com a criptografia normal (criptografia assimétrica - com chave pública e privada - esquema de identificação), somente quem paga é coberto pela anonimidade. Com o \textit{Blind signature}, quem recebe o dinheiro também ganha anonimidade. 
+        
+        Normalmente ocorre a combinação dos dois esquemas, garantindo anonimidade mutua. No geral permite que o usuário obtenha a assinatura de uma mensagem de uma maneira que o assinante não tenha conhecimento da mensagem nem da assinatura resultante. 
+        
+    \subsection{ Computação \textit{multi-party}}
+        Exemplificando com base em \cite{Du:2001:SMC:508171.508174}, o problema de segurança de computação \textit{multi-party} ocorre quando duas ou mais partes desejam estabelecer comunicação que envolva informações privadas e que não há a intenção de torná-las públicas. O problema consiste em como conduzir integração e ao mesmo tempo preservar a privacidade das informações. O \textit{bit-commitment} é utilizado como base.
+        
+        O problema de segurança de computação \textit{multi-party} trabalha com funções probabilísticas sobre qualquer que seja a informação, em uma rede distribuída, onde cada participante mantém sua entrada de dados, ou parte dela, garantindo independência nessa parte do processo.
+
+    \subsection{Encriptação homomórfica}
+        A encriptação homomórfica permite computar e operar dados criptografados sem a necessidade (nem permissão) de decriptá-los. Gentry em \cite{gentry2009fully} discute sobre melhorias nas características da encriptação homomórfica, focando na definição auto-ajustabilidade dos dados, ou \textit{bootstrappable}.
+    
+    \subsection{Mix-net}
+        A técnica foi idealizada por Chaum em \cite{Chaum1981untraceable} e preza pela não necessidade de uma autoridade confiável, onde um participante pode mandar informação para outra parte e se manter anônimo. A ideia é formar uma lista com pseudônimos digitais não rastreáveis. O dono da informação ganha a habilidade de criar assinaturas respectivas ao seu pseudônimo.
+        
+        Com base no trabalho de Douglas Wikstr̈om \cite{wikstrom2004universally}, o meio seguro é composto pelos mix-servers, trabalhando com uma lista de \textit{cryptotexts} com as informações a serem transmitidas assinadas, exibindo os \textit{cleartexts}, que é a saída da lista de forma randômica.
+        Os mix-servers trabalham cooperativamente repetindo o processo de re-encriptar e permutar randomicamente a informação, garantindo a não rastreabilidade.
+        
+    \subsection{Prova de conhecimento zero}
+        Provas de conhecimento zero é uma elegante técnica para limitar a quantidade de informação transferida do dono da informação/prova A para o verificador B. O proponente demonstra a posse da informação sem revelar, computacionalmente, a informação propriamente dita. 
+        \cite{goldwasser1989knowledge}. É aplicado para autenticação e para compartilhar e proteger dados.
+        
+    \subsection{\textit{Diffie-Hellman key exchange}}
+        Os protocolos Diffie-Hellman para troca de chaves autenticadas (AKE - \textit{Authenticated Key Exchange}) visa prover uma gama de participante com uma chave secreta compartilhada, a qual deverá ser utilizada para alcançar integridade de mensagens \textit{multicast}, por exemplo. É fundamental para o esquema Diffie-Hellman alcançar o AKE com a autenticação implícita. 
+        
+        Com o AKE, cada participante tem a garantia de que nenhum outro participante, além do grupo arbitrário de participantes, pode aprender qualquer informação sobre a chave da sessão. Outra característica altamente desejável é a autenticação mútua, onde cada participante tem a certeza de que seus parceiros (ou grupo dos mesmos) realmente possuem a chave da sessão distribuída. \cite{bresson2001provably}
+        
+    %%bit commitment scheme.
+    %% threshold encryption.
+    \\
+\chapter{\textbf{ARTIGOS REVISADOS}}
+
+\section{A Practical Secret Voting Scheme for Large Scale Elections}\label{I}
+    \subsection{Autores}
+        Atsushi Fujioka, Tatsuaki Okamoto, Kazuo Ohta.
+    \subsection{Destaque}\label{I.B}
+        \begin{itemize}
+            \item Proposição de um modelo prático de eleição de grande escala, possuindo como participantes, eleitor, administrador/centro de confiança e contador/tabela pública.
+            \item Citação de modelos de votação propostos sobre pontos de vista práticos e teóricos.
+            \item Separação de dois tipos de abordagens, envio do \textit{ballot} com o voto por um esquema mais criptografia ou por meio de um canal de comunicação anônimo.
+        \end{itemize}
+    \subsection{Resumo}
+    O artigo propõe um esquema de eleição de grande escala. Começa contrapondo dois tipos de abordagens, onde ambas servem para provê segurança no esquema da votação. São elas o envio do voto de forma criptografada e o envio do voto por um canal de comunicação anônimo, logo depois justificando a escolha da segunda abordagem.
+
+    A justificativa para a escolha do canal de comunicação é o fato do voto criptografado trazer sobrecarga para o processamento e para comunicação, visto que é preciso haver uma distribuição da entidade de confiança para prover privacidade ao eleitor. 
+    % O problema já é resolvido nos dias de hoje? Há uma mescla entre as duas abordagens?
+    
+    O autor define etapas para realização do processo. Tais etapas abrangem outras subetapas de segurança além de fluxos principais e fluxos alternativos. As etapas são:
+        \begin{itemize}
+            \item \textit{Preparation}: Onde a técnica de \textit{blind signature} é utilizada para enviar a mensagem ao administrador. 
+            \item \textit{Administration}: O administrador assina a mensagem na qual o \textit{ballot} do eleitor está escondido e então manda de volta.
+            \item \textit{Voting}: O eleitor obtém o \textit{ballot} assinado e envia para o contador de forma anônima.
+            \item \textit{Collecting}: O contador publica a lista de \textit{ballots} recebidos. 
+            \item \textit{Opening}: Opcionalmente, caso ocorra algum problema, o eleitor reivindica seu voto e envia sua chave de encriptação anonimamente por um canal seguro.
+            \item \textit{Counting}: Etapa ocorre a contagem dos votos e a publicação do resultado.
+        \end{itemize}
+        
+    \subsection{Observações}
+    Sobre a escolha entre as duas abordagens de segurança, o problema não já é resolvido nos dias de hoje? A tecnologia de Blockchain, evidenciada com os Bitcoins, já cuida dessa descentralização da entidade de confiança. Há uma mescla entre as duas abordagens citadas no último item de \ref{I.B}  evidenciada em tecnologias Blockchain como Hyperledger, por exemplo.
+
+\section{An Improvement on a Practical Secret Voting Scheme}
+    \subsection{Autores}
+        Miyako Ohkubo, Fumiaki Miura, Masayuki Abe, Atsushi Fujioka, and Tatsuaki Okamoto
+    \subsection{Destaque}
+        O Autor evidencia outras abordagens para aplicação prática de uma eleição eletrônica: computação \textit{multi-party}, encriptação homomórfica, Mix-net e por fim baseado em \textit{blind signature}, com destaque para seção de implementação do canal anônimo com Mix-net. 
+    \subsection{Resumo}
+        A proposta apresentada pelo autor é baseada no trabalho da seção \ref{I} e sugere uma melhoria para o eleitor por meio de uma nova propriedade que anula a sua necessidade de participar do etapa da contagem além de continuar garantindo as outras propriedades de segurança.
+        
+        A proposta é manter a etapa da votação segura e composta por um esquema de voto baseado em \textit{blind signature}, além de utilizar a nova propriedade, \textit{walk away}, que possibilita ao eleitor cessar a utilização do sistema após submeter seu voto.
+        
+        Um \textit{bulletin board} é utilizado para manter as informações, onde qualquer um pode gravar sem identificação explicita e ninguém pode apagar ou sobrescrever informações. Se tratando da criptografia, esquemas já difundidos foram utilizados - \textit{multiparty threshold encryption}, \textit{digital signarute}, \textit{blind signature}.
+        
+        O esquema proposto nesse trabalho herda a maior parte das propriedades de segurança do trabalho da seção \ref{I}, apresentando como diferença a existência de mais de uma entidade contadora de forma distribuída. Também ocorre o uso da criptografia com \textit{multiparty threshold encryption} ao invés de \textit{bit-commitment} na etapa de obtenção do \textit{ballot}.
+        
+        A relação entre a identidade do eleitor e o \textit{ballot} é mantida pelo esquema de \textit{blind signature}. O \textit{ballot} é enviado pelo canal seguro de forma irrastreável. Outra etapa diferente da proposta de \ref{I} é a  da contagem, onde os eleitores não precisam mais enviar informação para abrir seu \textit{ballot} por que o contador sabe já sabe decriptar. Essa é a propriedade \textit{walk-away}, definida para os eleitores.
+        
+\section{An Anonymous Electronic Voting Protocol for Voting Over The Internet}
+    \subsection{Autores}
+        Indrajit Rayt, Indrakshi Rayt, Natarajan NarasimhamurthiS
+    \subsection{Destaque}
+        O autor começa destacando as mesmas abordagens citadas em \ref{I.B} e posiciona seu artigo como similar ao da seção \ref{I}, funcionando também para eleições de larga escala sobre a Internet, mas sem a necessidade de um canal anônimo, utilizando um processo similar ao de uma sessão FTP de convidado para a efetivação do voto.
+    \subsection{Resumo}
+        Os seguintes itens são referenciados como propriedades para a segurança da eleição:
+        \begin{itemize}
+            \item \textit{Accuracy:}
+                Um voto submetido não pode ser alterado, um voto inválido não será contado e cada eleitor tem a garantia de que seu voto será considerado.
+            \item \textit{Democracy:}
+                Somente um eleitor apto participa do processo e cada eleitor só submete o voto uma vez.
+            \item \textit{Privacy:}
+                Ao lançar o \textit{ballot} com o voto, não haverá como identificar o eleitor que o submeteu.
+            \item \textit{Verifiability:}
+                Cada eleitor pode verificar se seu voto.
+            \item \textit{No Unauthorized Proxy:}
+                Como uma propriedade adicional, se um eleitor apto que recebeu o \textit{ballot} decidir não votar, nenhuma entidade do sistema pode forjar um voto em seu lugar.
+        \end{itemize}
+        
+        Mais características do protocolo aplicado são explanados. Tais características são utilizadas em algum momento durante o processo. A primeira delas é, permutação difícil de inverter. Basicamente é uma randomização de números que para reverter tem um custo de processamento muito alto.
+        
+        A segunda é o \textit{blind signature} das mensagens. Uma transformação de uma mensagem passível de verificação que só pode ocorrer com a assinatura da entidade responsável, onde qualquer um pode verificar a origem da assinatura. O processo envolve a assinatura da mensagem sem a exposição da informação. Por fim o esquema de encriptação que garante privacidade e imutabilidade da mensagem em transito.
+        
+        As ações da eleição passam por três diferentes agentes \textit{ballot distributor} (BD), \textit{certifying authority} (CA) e o \textit{vote compiler} (VC). O autor reforça que o processo de não submeter o voto é diferente de se abster, visto que todos eleitores aptos recebem o \textit{ballot} assinado pelo BD. 
+        
+    \subsection{Observações}
+        A proposta serve a uma eleição de grande escala e via internet, entretanto a substituição do canal anônimo com mix-net pelo ftp anônimo pode não ser favorável ao cenário com o voto partindo de dispositivos pessoais. Não é aprofundado as diferenças entre as duas formas pára transporte do voto, não ficando claro se há uma vantagem técnica da abordagem proposta.
+        
+        Com o meio de transporte por ftp anônimo se torna possível rastrear o endereço IP do dispositivo de onde veio a submissão do voto, se tornando suficientemente seguro se for utilizado centrais ou quiosques para votação, levando a locomoção ao local de voto.
+        
+\section{Secure E-Voting With Blind Signature}
+    \subsection{Autores}
+        Subariah Ibrahim, Maznah Kamat, Mazleena Salleh, and Shah Rizan Abdul Aziz
+    \subsection{Destaque}
+        O trabalho visa utilizar \textit{blind signature} para manter a confidência das informações e a assinatura digital do eleitor para a autenticação. A implementação ocorreu com Java (socket) e para o segurança do canal de comunicação houve a utilização da API de código aberto BouncyCastle \cite{BouncyCastle}.
+        
+        A chave privada do eleitor, referente a sua assinatura digital, é segura por um esquema de criptografia baseada em senha, com algorítimos SHA (\textit{Secure Hash Algorithms}) e Twofish-CBC, o que resulta no uso exclusivo para eleitores válidos.
+    \subsection{Resumo}
+        Para evitar os problemas com ações fraudulentas e corruptas, o trabalho apresenta quatro requisitos de segurança:
+        \begin{itemize}
+            \item Confidencialidade: O \textit{ballot} do eleitor deve ser mantida em segredo, prevenindo uma exposição do voto em relação ao eleitor, o que dificulta também a compra de votos.
+            
+            \item Integridade: Sem essa propriedade o \textit{ballot} poderia ser adulterado com facilidade, visto que se trata de um ambiente digital online. Para garantir a integridade, o esquema adotado deve garantir que somente votos validos serão considerados, que ninguém posso alterar o voto e se houver alguma tentativa, deve-se expor o responsável.
+            
+            \item Autenticidade: Deve existir um mecanismo de autenticação que garanta que o eleitor é realmente quem diz ser e que ele esteja apto para participar da eleição. Para que essa propriedade seja satisfeita, durante o período de registo, é preciso atribuir algum tipo de credencial ao eleitor, para que o mesmo possa utilizar durante a etapa da votação. Com essa mesma credencial será possível identificar se o eleitor já submeteu o voto.
+            
+            \item Verificabilidade: É apresentada sobre duas categorias, individual e universal. A individual é satisfeita quando o eleitor consegue identificar com sucesso que seu voto foi computado e considerado para o resultado final. Já a verificabilidade universal é atribuída à transparência da eleição, quando qualquer um possa auditar as informações publicadas além da possibilidade de verificar se os votos foram contabilizados corretamente.
+        \end{itemize}
+        
+        O trabalho apresenta sete entidades que compõem as etapas do processo: eleitor, administrador, contador, validador, registrador, base do sistema e base nacional com pessoas aptas.
+        
+    \subsection{Observações}
+        A disposição dos participantes da eleição é bem interessante. O fato de existir uma base oficial que representa os participantes aptos para a eleição mostra uma proximidade com o processo real. Esses participantes são eleitores e que podem ser candidatos também, afinal o candidato também vota. Existe também a presença muito importante da entidade da administração que indica o período que a eleição vai ocorrer além de registrar os eleitores para a candidatura, basicamente como pensei para o trabalho do mestrado.
+        
+\section{Blockchain Voting and its effects on Election Transparency and Voter Confidence}
+    \subsection{Autores}
+        Teogenes Moura, Alexandre Gomes
+    \subsection{Destaque}
+        Justificando a falta de confiabilidade nos sistemas convencionais, o autor evidencia as propriedades comuns entre a maioria das blockchais: transparência, imutabilidade, alta disponibilidade, confiabilidade/auditabilidade. É apresentado também o efeito \textit{Winner - Loser}, onde os eleitores que votaram no vencedor tendem a confiar mais no sistema do que os demais. 
+        
+    \subsection{Resumo}
+        Os meios sem blockchain para realização digital de eleições não proveem suficiente nível de transparência para os eleitores, impactando na confiança sobre seu voto permanecer o mesmo até a contagem final dos votos. O artigo discorre sobre blockchain e indica como seu uso pode resolver os problemas de transparência e confiabilidade.
+        
+    \subsection{Observações}
+        O autor posiciona o sistema de eleição somente para ambientes públicos ( consequentemente para amplas votações), lembrando das principais característica da blockchain pública, que são transações baseadas em consenso geral da rede (\textit{trustless}), além de arquitetura distribuída e descentralizada. 
+        
+        Contudo, talvez o conceito de \textit{trustless} seja modificado ao se tratar de uma blockchain permissionada, visto que normalmente se utilizam outros protocolos para consenso (variantes do BFT), além de ser moldada para o cliente, oferecendo soluções de gerenciamento de identidade que se integram aos sistemas de confiança da empresa. Por ser um ambiente privado não há necessidade de maior rigor em relação aos participantes e o consenso.
+
+\section{The privacy protection mechanism of
+Hyperledger Fabric and its application in
+supply chain finance}
+   \subsection{Autores} Chaoqun Ma, Xiaolin Kong, Qiujun Lan* e Zhongding Zhou
+   \subsection{Destaque}
+   \subsection{Resumo}
+   \subsection{Observações}
+
+\section{Blockchain Technology: Principles and Applications}
+   \subsection{Autores} Marc Pilkington
+   \subsection{Destaque}
+   \subsection{Resumo}
+   \subsection{Observações}
+
+%\section{Titulo}
+    %\subsection{Autores}
+    %\subsection{Destaque}
+    %\subsection{Resumo}
+    %\subsection{Observações}
+    
+\include{complemento1}
+
+\include{complemento_hyperledger}
+    
+\bibliographystyle{unsrt}%abbrv
+\bibliography{references}
+
+\end{document}
